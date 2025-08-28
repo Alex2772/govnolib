@@ -4,7 +4,7 @@ project(example_app
         VERSION 0.0.11 # CI_PROJECT_VERSION
     )
 
-set(CPACK_GENERATOR ZIP)
+set(CPACK_GENERATOR "ZIP" CACHE STRING "")
 
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 option(AUIB_FORCE_PRECOMPILED "AUI.Boot: force precompiled dependencies" OFF)
@@ -19,3 +19,5 @@ include(${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
 
 file(GLOB_RECURSE SRCS src/*.cpp)
 add_library(govnolib ${SRCS})
+
+include(CPack)
