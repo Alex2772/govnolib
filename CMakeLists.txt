@@ -4,6 +4,8 @@ project(example_app
         VERSION 0.0.11 # CI_PROJECT_VERSION
     )
 
+set(CPACK_GENERATOR ZIP)
+
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 option(AUIB_FORCE_PRECOMPILED "AUI.Boot: force precompiled dependencies" OFF)
 option(AUIB_NO_PRECOMPILED "AUI.Boot: disable precompiled dependencies" ON)
