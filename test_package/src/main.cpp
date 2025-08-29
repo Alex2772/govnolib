@@ -6,6 +6,6 @@
 #include "govno.h"
 
 int main() {
-  std::cout << govno::version() << '\n';
+  std::cout << govno::test("test2aisfnasfl kasfnasl falsf n") << govno::version() << '\n';
   return 0;
 }
