@@ -9,6 +9,9 @@ project(govno
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 message(STATUS "CMAKE_VS_PLATFORM_TOOLSET=${CMAKE_VS_PLATFORM_TOOLSET}")
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Use AUI.Boot framework
 # Set AUI framework version
 set(AUI_VERSION fa0cf5d68a340da4a6dd46cb8ea55f900e34cad2)

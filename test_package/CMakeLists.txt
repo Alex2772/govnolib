@@ -21,17 +21,22 @@ include(${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
 
 # Find all .cpp source files recursively in src directory
 file(GLOB_RECURSE SRCS src/*.cpp)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Create library target from collected sources
-add_executable(govnotest ${SRCS})
+add_executable(${PROJECT_NAME} ${SRCS})
 
 # add the govno library
 auib_import(govno https://github.com/Alex2772/govnolib
         VERSION v0.0.2
 )
-target_link_libraries(govnotest PUBLIC govno::govno)
+target_link_libraries(${PROJECT_NAME} PUBLIC govno::govno)
+
 
 # Set include directories for build and installation
-target_include_directories(govnotest PUBLIC
+target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:include>
 )
