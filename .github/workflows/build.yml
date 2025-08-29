@@ -28,11 +28,13 @@ jobs:
     steps:
       - name: Install Windows 8.1 SDK
         shell: powershell
+        if: runner.os == 'Windows'
         run: |
           Invoke-WebRequest -Method Get -Uri https://go.microsoft.com/fwlink/p/?LinkId=323507 -OutFile sdksetup.exe -UseBasicParsing
           Start-Process -Wait sdksetup.exe -ArgumentList "/q", "/norestart", "/features", "OptionId.WindowsDesktopSoftwareDevelopmentKit", "OptionId.NetFxSoftwareDevelopmentKit"
       - name: Setup devcmd
         uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
         with:
           sdk: 8.1
 
