@@ -7,6 +7,7 @@ project(govno
 
 # Allow user to toggle between static and shared library building
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
+message(STATUS "CMAKE_VS_PLATFORM_TOOLSET=${CMAKE_VS_PLATFORM_TOOLSET}")
 
 # Use AUI.Boot framework
 # Set AUI framework version

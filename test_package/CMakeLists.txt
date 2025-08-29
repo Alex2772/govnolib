@@ -4,7 +4,7 @@ project(govnotest)
 
 # Allow user to toggle between static and shared library building
 option(BUILD_SHARED_LIBS "Build shared libs" OFF)
-
+message(STATUS "CMAKE_VS_PLATFORM_TOOLSET=${CMAKE_VS_PLATFORM_TOOLSET}")
 
 option(AUIB_FORCE_PRECOMPILED "Use precompiled binary only" ON)
 
@@ -26,7 +26,7 @@ add_executable(govnotest ${SRCS})
 
 # add the govno library
 auib_import(govno https://github.com/Alex2772/govnolib
-        VERSION v0.0.1
+        VERSION v0.0.2
 )
 target_link_libraries(govnotest PUBLIC govno::govno)
 
