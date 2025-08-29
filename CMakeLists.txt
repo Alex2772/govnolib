@@ -22,28 +22,44 @@ include(${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
 # Find all .cpp source files recursively in src directory
 file(GLOB_RECURSE SRCS src/*.cpp)
 # Create library target from collected sources
-add_library(govno ${SRCS})
-# Set include directories for build and installation
-target_include_directories(govno PUBLIC
+add_library(${PROJECT_NAME} ${SRCS})
+
+
+set(TARGETS_EXPORT_NAME ${PROJECT_NAME}-targets)
+
+# Global includes. Used by all targets
+# Note:
+#   * header location in project: src/*.h
+#   * header location when installed: include/*.h
+#   * header can be included by C++ code `#include <govno.h>`
+target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:include>
 )
 
-# Include standard GNU installation directories definitions
+# Introduce variables:
+# * CMAKE_INSTALL_LIBDIR
+# * CMAKE_INSTALL_BINDIR
+# * CMAKE_INSTALL_INCLUDEDIR
 include(GNUInstallDirs)
-# Install library binaries and export targets
-install(TARGETS govno
-        EXPORT govno-targets
+
+# Targets:
+#   * <prefix>/lib/libgovno.a
+#   * header location after install: <prefix>/include/govno.h
+#   * headers can be included by C++ code `#include <govno.h>`
+install(TARGETS ${PROJECT_NAME}
+        EXPORT ${TARGETS_EXPORT_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-# Install CMake targets file for downstream projects
-install(EXPORT govno-targets
-        FILE govno-targets.cmake
-        NAMESPACE govno::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/govno)
+# Install CMake targets file for downstream projects:
+#   * <prefix>/lib/cmake/govno/govno-targets.cmake
+install(EXPORT ${TARGETS_EXPORT_NAME}
+        FILE ${TARGETS_EXPORT_NAME}.cmake
+        NAMESPACE "${PROJECT_NAME}::"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
 # Install header files
 install(DIRECTORY src/
@@ -54,16 +70,31 @@ install(DIRECTORY src/
 # Include helpers for creating config files
 include(CMakePackageConfigHelpers)
 
-# Generate package version file
+
+# Configure '<PROJECT-NAME>Config.cmake'
+# Use variables:
+#   * TARGETS_EXPORT_NAME
+#   * PROJECT_NAME
+configure_package_config_file(
+        "cmake/config.cmake.in"
+        "${PROJECT_NAME}-config.cmake"
+        INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+)
+
+# Configure '<PROJECT-NAME>-config-version.cmake'
+# Use:
+#   * PROJECT_NAME
+#   * PROJECT_VERSION
 write_basic_package_version_file(
-        govno-config-version.cmake
+        ${PROJECT_NAME}-config-version.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY SameMajorVersion)
 
 # Install config version file
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/govno-config-version.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/govno)
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
 
 # Configure precompiled binary settings for AUI framework
