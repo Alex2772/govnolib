@@ -6,7 +6,7 @@
 #include <algorithm>
 
 std::string govno::version() {
-  return "0.0.1";
+  return "0.0.2";
 }
 
 std::string govno::test(std::string input) {

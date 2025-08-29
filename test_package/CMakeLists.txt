@@ -26,7 +26,7 @@ add_executable(govnotest ${SRCS})
 
 # add the govno library
 auib_import(govno https://github.com/Alex2772/govnolib
-        VERSION v0.0.1
+        VERSION v0.0.2
 )
 target_link_libraries(govnotest PUBLIC govno::govno)
 

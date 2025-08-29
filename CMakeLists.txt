@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 # Define project name and version
 project(govno
-        VERSION 0.0.1 # CI_PROJECT_VERSION
+        VERSION 0.0.2 # CI_PROJECT_VERSION
     )
 
 # Allow user to toggle between static and shared library building
