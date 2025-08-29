@@ -10,7 +10,7 @@ option(BUILD_SHARED_LIBS "Build shared libs" OFF)
 
 # Use AUI.Boot framework
 # Set AUI framework version
-set(AUI_VERSION v8.0.0-rc.8)
+set(AUI_VERSION fa0cf5d68a340da4a6dd46cb8ea55f900e34cad2)
 # Download AUI boot script from GitHub
 file(
         DOWNLOAD

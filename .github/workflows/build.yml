@@ -26,6 +26,9 @@ jobs:
         os: [windows-latest, ubuntu-latest]
 
     steps:
+      - name: Setup devcmd
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Fetch sources
         uses: actions/checkout@v4
 

@@ -10,7 +10,7 @@ option(AUIB_FORCE_PRECOMPILED "Use precompiled binary only" ON)
 
 # Use AUI.Boot framework
 # Set AUI framework version
-set(AUI_VERSION v8.0.0-rc.8)
+set(AUI_VERSION fa0cf5d68a340da4a6dd46cb8ea55f900e34cad2)
 # Download AUI boot script from GitHub
 file(
         DOWNLOAD
@@ -26,7 +26,7 @@ add_executable(govnotest ${SRCS})
 
 # add the govno library
 auib_import(govno https://github.com/Alex2772/govnolib
-        VERSION v0.0.2
+        VERSION v0.0.1
 )
 target_link_libraries(govnotest PUBLIC govno::govno)
 
