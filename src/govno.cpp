@@ -3,3 +3,7 @@
 //
 
 #include "govno.h"
+
+std::string govno::version() {
+  return "0.0.1";
+}

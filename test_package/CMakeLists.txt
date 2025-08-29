@@ -1,4 +1,4 @@
-cmake_minimum_required(3.16)
+cmake_minimum_required(VERSION 3.16)
 
 project(govnotest)
 
@@ -19,15 +19,17 @@ file(
 # Include downloaded AUI boot script
 include(${CMAKE_CURRENT_BINARY_DIR}/aui.boot.cmake)
 
-
-auib_import(govno https://github.com/Alex2772/govnolib
-            VERSION v0.0.11
-)
-
 # Find all .cpp source files recursively in src directory
 file(GLOB_RECURSE SRCS src/*.cpp)
 # Create library target from collected sources
 add_executable(govnotest ${SRCS})
+
+# add the govno library
+auib_import(govno https://github.com/Alex2772/govnolib
+        VERSION v0.0.11
+)
+target_link_libraries(govnotest PUBLIC govno::govno)
+
 # Set include directories for build and installation
 target_include_directories(govnotest PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
